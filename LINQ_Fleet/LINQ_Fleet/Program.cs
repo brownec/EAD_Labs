@@ -12,16 +12,33 @@ namespace LINQ_Fleet
     public class Car
     {
         // A fleet is a collection of cars. Each car has a make, model, registration and engine size (cc)
-        // Create a fleet collection in memory and populate with some cars
+        public String Make { get; set; }
+        public String Model { get; set; }
+        public String Registration { get; set; }
+        public int EngineSize { get; set; }
+
+        public override string ToString()
+        {
+            return Make + " " + Model + " " + Registration + " " + EngineSize;
+        }
     }
-
-
+    
     // Test Class
     class Program
     {
-        public static void Main()
+        static void Main(string [] args)
         {
             Console.WriteLine("*****EAD1 LINQ Lab - Fleet*****");
+            // Create a fleet collection in memory and populate with some cars
+            List<Car> fleet = new List<Car>();
+            fleet.Add(new Car() { Make = "Alfa Romeo", Model = "156", Registration = "05 LK 2160", EngineSize = 1600 });
+            fleet.Add(new Car() { Make = "Alfa Romeo", Model = "GT", Registration = "05 WK 1900", EngineSize = 1900 });
+            fleet.Add(new Car() { Make = "Citroen", Model = "Estate", Registration = "08 D 1000", EngineSize = 1600 });
+            fleet.Add(new Car() { Make = "Peugeot", Model = "206", Registration = "02 D 900", EngineSize = 1200 });
+            fleet.Add(new Car() { Make = "Toyota", Model = "Yaris", Registration = "08 D 500", EngineSize = 1000 });
+            fleet.Add(new Car() { Make = "Toyota", Model = "Yaris", Registration = "08 K 1200", EngineSize = 1000 });
+            fleet.Add(new Car() { Make = "VW", Model = "Polo", Registration = "07 WK 8000", EngineSize = 1400 });
+
 
 // Write LINQ queries on the fleet to:
             // **********QUERY 1. List all cars in ascending registration order**********
