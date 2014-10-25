@@ -133,8 +133,7 @@ namespace Lab7_Collections
 
 
     // Test Class
-    /* 3.	Use a test class to create students, a student class, add the students to the class and test the indexers. 
- * It should catch any exceptions that may be thrown.
+    /* 3.	
 4.	Modify the solution to use a generic collection i.e. a List<Student> instead of an ArrayList in the student class. 
  */
     class Program
@@ -142,6 +141,40 @@ namespace Lab7_Collections
         public static void Main()
         {
             Console.WriteLine("**********EAD Lab7 - Collections**********");
+            try
+            {
+                /* Use a test class to create students, a student class, add the students to the class and test the indexers. 
+                * It should catch any exceptions that may be thrown. */
+                Student s1 = new Student("X00014810", "Cliff Browne", Gender.m);
+                Student s2 = new Student("X00012345", "Jane Doe", Gender.f);
+
+                StudentClass ead1 = new StudentClass("EAD1", "Gary Clynch");
+
+                // Add in the Students to the StudentClass
+                ead1.AddStudent(s1);
+                ead1.AddStudent(s2);
+
+                // Print out the details of the class and each student
+                Console.WriteLine("Class: CRN " + ead1.CRN + " Lecturer " + ead1.Lecturer);
+                foreach(Student student in ead1) // uses the iterator foreach
+                {
+                    Console.WriteLine(student);
+                }
+
+                // try to locate a student
+                Student s = ead1["X00014810"]; // uses the overloaded indexer
+                Console.WriteLine("Student Found in system: " + s);
+                s = ead1[1];
+                Console.WriteLine("Student Found in system: " + s);
+            }
+            catch (ArgumentException e1)
+            {
+                Console.WriteLine(e1.Message);
+            }
+            catch (Exception e2)
+            {
+                Console.WriteLine(e2.Message);
+            }
         }
     }
 }
