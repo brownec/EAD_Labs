@@ -1,6 +1,7 @@
 ﻿// Cliff Browne - X00014810
 // EAD Lab7 - Collections
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,14 +37,7 @@ namespace Lab7_Collections
         }
     }
 
-    /* 2.	Implement a class which represents a student class. 
-     * 
-     * . 
-     * 
-        1.	
-        2.	. 
-        * In both cases throw exceptions if there are problems e.g. the index specified is out of 
-        * range or if no matching student with the specified ID can be found. */
+    // 2.	Implement a class which represents a student class   
     public class StudentClass : IEnumerable
     {
         /* A class contains a CRN (class reference number) which is unique, the name of the lecturer 
@@ -88,9 +82,53 @@ namespace Lab7_Collections
         }
 
         /* Add 2 indexers to the class, the first allows a student at a specific index position (integer) 
-        * to be returned e.g. student 0, 1, 2 etc. */
-        // The second allows the collection to be indexed based on the student ID
+          to be returned e.g. student 0, 1, 2 etc. 
+          In both cases throw exceptions if there are problems e.g. the index specified is out of 
+          range or if no matching student with the specified ID can be found.*/
+        public Student this[int i]
+        {
+            get
+            {
+                // Validate the index values
+                if((i >= 0) && (i < students.Count))
+                {
+                    return students[i];
+                }
+                else
+                {
+                    throw new ArgumentException("Error: The student index is out of range.");
+                }
+            }
+        }
 
+        // The second allows the collection to be indexed based on the student ID
+        public Student this[String id]
+        {
+            get
+            {
+                // Find the matching student
+                Student student = null;
+                // LINQ query to find matching student
+                int count = students.Count(s => s.ID == id);
+                if(count == 1)
+                {
+                    student = students.Where(s => s.ID == id).First(); // selects the first student in the array
+                    return student;
+                }
+                else
+                {
+                    throw new ArgumentException("Student not found!");
+                }
+            }
+        }
+        // Iterate over the Student Collection - foreach is now possible on StudentClass
+        public IEnumerator GetEnumerator()
+        {
+            foreach (Student student in students)
+            {
+                yield return student; // Iterator
+            }
+        }
     }
 
 
