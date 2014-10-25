@@ -37,21 +37,59 @@ namespace Lab7_Collections
     }
 
     /* 2.	Implement a class which represents a student class. 
-     * A class contains a CRN (class reference number) which is unique, the name of the lecturer 
-     * for the class, and a collection of students in the class. 
-     * Use auto-implemented fields for the CRN and lecturer name. 
-     * Implement a constructor which sets the CRN and lecturer name and creates an empty collection. 
-     * Use an ArrayList for the collection of students in the class.
-        1.	Add a method to the class which adds a new student. 
-        * It should throw an exception if an attempt is made to add a student to the class if a 
-        * student with the same ID already exists in the class.
-        2.	Add 2 indexers to the class, the first allows a student at a specific index position (integer) 
-        * to be returned e.g. student 0, 1, 2 etc. 
-        * The second allows the collection to be indexed based on the student ID. 
+     * 
+     * . 
+     * 
+        1.	
+        2.	. 
         * In both cases throw exceptions if there are problems e.g. the index specified is out of 
         * range or if no matching student with the specified ID can be found. */
     public class StudentClass : IEnumerable
     {
+        /* A class contains a CRN (class reference number) which is unique, the name of the lecturer 
+     * for the class. Use auto-implemented fields for the CRN and lecturer name. */
+        public String CRN { get; set; }
+        public String Lecturer { get; set; }
+
+        // a collection of students in the class (STRONGLY TYPED)
+        private List<Student> students;
+
+        // Implement a constructor which sets the CRN and lecturer name and creates an empty collection
+        public StudentClass(String crn, String lecturer)
+        {
+            this.CRN = crn;
+            this.Lecturer = lecturer;
+
+            // Use an ArrayList for the collection of students in the class
+            students = new List<Student>();
+        }
+
+        /* Add a method to the class which adds a new student. 
+        * It should throw an exception if an attempt is made to add a student to the class if a 
+        * student with the same ID already exists in the class. */
+        public void AddStudent(Student student)
+        {
+            if(students == null) // check to see if students are empty
+            {
+                students.Add(student); // adds the first student to the class/list/array
+            }
+            else
+            {
+                // LINQ query to check that the sudent id is unique
+                if((students.Count(s => s.ID == student.ID)) ==1)
+                {
+                    throw new ArgumentException("Error: Student " + student.StudentName + " is already in the system.");
+                }
+                else
+                {
+                    students.Add(student);
+                }
+            }
+        }
+
+        /* Add 2 indexers to the class, the first allows a student at a specific index position (integer) 
+        * to be returned e.g. student 0, 1, 2 etc. */
+        // The second allows the collection to be indexed based on the student ID
 
     }
 
@@ -65,7 +103,7 @@ namespace Lab7_Collections
     {
         public static void Main()
         {
-            Console.WriteLine("**********EAD Lab7 - Collections**********")
+            Console.WriteLine("**********EAD Lab7 - Collections**********");
         }
     }
 }
