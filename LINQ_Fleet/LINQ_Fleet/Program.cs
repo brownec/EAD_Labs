@@ -42,19 +42,40 @@ namespace LINQ_Fleet
 
 // Write LINQ queries on the fleet to:
             // **********QUERY 1. List all cars in ascending registration order**********
-            
-            
-            // **********QUERY 2. List the models for all Mazda cars in the fleet**********
-            
-            
+            var allCarsRegOrder = fleet.OrderBy(car => car.Registration);
+            foreach(var car in allCarsRegOrder)
+            {
+                Console.WriteLine(car);
+            }
+            Console.WriteLine();
+
+            // **********QUERY 2. List the models for all Toyota cars in the fleet**********
+            var toyotaCars = fleet.Where(car => car.Make == "Toyota").Select(car => car.Model);
+            foreach(var car in toyotaCars)
+            {
+                Console.WriteLine(car);
+            }
+            Console.WriteLine();
+
             // **********QUERY 3. List all cars in descending engine size order**********
-            
-            
+            var engineSizeDescOrder = fleet.OrderByDescending(car => car.EngineSize);
+            foreach(var car in engineSizeDescOrder)
+            {
+                Console.WriteLine(car);
+            }
+            Console.WriteLine();
+
             // **********QUERY 4. List just the make and model for cars whose engine size is 1600 cc**********
-            
+            var engineSize1600 = fleet.Select(car => new { car.Make, car.Model });
+            foreach(var car in engineSize1600)
+            {
+                Console.WriteLine("Make: " + car.Make + " " + "Model: " + car.Model);
+            }
+            Console.WriteLine();
             
             // **********QUERY 5. Count the number of cars whose engine size is 1600 cc or less**********
-
+            var count1600orLess = fleet.Where(car => car.EngineSize <= 1600).Count();
+            Console.WriteLine("Number of cars with engines less than 1600 c.c is: " + count1600orLess);
         }
     }
 }
