@@ -8,17 +8,32 @@ using System.Threading.Tasks;
 
 namespace Lab7_Collections
 {
-    public enum Sex
+    public enum Gender
     {
-        male, female
+        m, f
     }
 
-    /* 1.	Implement a class which represents a student. 
- * A student has a unique ID, a name, and a gender. 
- * Add appropriate constructors and properties to the class. */
-    public class Student
+    // 1.	Implement a class which represents a student. 
+     public class Student
     {
+        // * A student has a unique ID, a name, and a gender
+        public String ID { get; set; }
+        public String StudentName { get; set; }
+        public Gender Gend { get; set; }
 
+        // * Add appropriate constructors and properties to the class
+        public Student (String id, String name, Gender sex)
+        {
+            this.ID = id;
+            this.StudentName = name;
+            this.Gend = sex;
+        }
+        
+         // Override the ToString() method
+        public override string ToString()
+        {
+            return "ID: " + ID + "Student Name: " + StudentName + "Gender: " + Gend;
+        }
     }
 
     /* 2.	Implement a class which represents a student class. 
