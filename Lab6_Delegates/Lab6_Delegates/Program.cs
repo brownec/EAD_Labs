@@ -8,16 +8,13 @@ using System.Threading.Tasks;
 
 /* A system is required which allows for different ciphers to be used to encrypt plaintext messages into ciphertext. 
  * Use a delegate to define a set of methods which take a plaintext message as input and return a ciphertext message. 
-Implement two different ciphers which can be plugged and played via the delegate. 
- * The first cipher should be a simple Caeser cipher which shifts up every character in the plaintext by one character position. 
- * The second cipher should just reverse the plaintext to form the ciphertext.
- */
+Implement two different ciphers which can be plugged and played via the delegate. */
 
 delegate string EncryptionDelegate(string plaintext);
 
 class Cipher
     {
-    // Simple Cesaer Cipher
+    // The first cipher should be a simple Caeser cipher which shifts up every character in the plaintext by one character position
     public static string Cipher1(String plaintext)
     {
         const int key = 1; // shifts the plaintext by 1 character
@@ -34,10 +31,28 @@ class Cipher
         return ciphertext.ToString();
     }
 
-        // Test Class
+    // The second cipher should just reverse the plaintext to form the ciphertext
+    public static string Cipher2(String plaintext)
+        {
+            char[] text = plaintext.ToCharArray();
+            string ciphertext = string.Empty;
+            for(int i = text.Length - 1; i >= 0; i--)
+            {
+                ciphertext += text[i];            
+            }
+        return ciphertext;
+        }
+ 
+    // Test Class
         public static void Main()
         {
             Console.WriteLine("**********EAD Lab 6 - Delegates**********");
+            EncryptionDelegate ed1 = null;
+            ed1 = Cipher1;
+            Console.WriteLine(ed1("secret message"));
+
+            EncryptionDelegate ed2 = new EncryptionDelegate(Cipher2);
+            Console.WriteLine(ed2("another secret message"));
         }
     }
-}
+
