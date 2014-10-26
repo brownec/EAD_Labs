@@ -101,6 +101,7 @@ namespace UnitTest_Bank
             if(depAmount > 0)
             {
                 accBalance += depAmount; // accBalance property, adds the deposit amount to the current account balance
+                // Modify the Deposit and  Withdraw methods to store the transaction concerned in the history
                 transactionHistory.Add(depAmount); // updates the transactionHistory, adds the deposit amount
             }
             else
@@ -123,6 +124,7 @@ namespace UnitTest_Bank
                 if((accBalance + overDraftLimit) > wdAmount)
                 {
                     accBalance -= wdAmount; // calculates the account balance when withdrawl amount deducted
+                    // Modify the Deposit and  Withdraw methods to store the transaction concerned in the history.
                     transactionHistory.Add(wdAmount * -1); // updates the transactionHistory and adds the withdrawl to the list
                 }
                 else
@@ -138,10 +140,29 @@ namespace UnitTest_Bank
             }
         }
 
-
-        /* 6.   Modify the Deposit and  Withdraw methods to store the transaction concerned in the history. */
-
         // 7.	Override ToString() instead to return all information about the account including the transaction history.
+        public override string ToString()
+        {
+            Console.WriteLine("\t*****Account Details*****\n\n");
+            string accountDetails = "Sort Code: " + sortCode + "\nAccount Number: " + accNumber + "\nOverdraft Limit: " + overDraftLimit;
+
+            // Add Account Transaction History Details
+            accountDetails += "\nTotal Transactions on this account are: " + transactionHistory.Count + "\n\n";
+
+            foreach(double transaction in transactionHistory)
+            {
+                if(transaction < 0)
+                {
+                    accountDetails += "Withdrawl amount of E" + transaction + "\n";
+                }
+                else
+                {
+                    accountDetails += "Deposited amount of E" + transaction + "\n";
+                }
+            }
+            accountDetails += "Current Account Balance: E" + accBalance + "\n";
+            return accountDetails;
+        }
 
         /* 8.	Implement a set of unit tests to test any logic associated with changing the balance and recording the transaction 
          * history and validating inputs e.g. initial overdraft limit and amounts to deposit and withdraw from the account. 
@@ -154,7 +175,16 @@ namespace UnitTest_Bank
     {
         public static void Main()
         {
-            Console.WriteLine("*****EAD1 Unit Test Lab_Bank Account*****");
+            /* Console.WriteLine("*****EAD1 Unit Test Lab_Bank Account*****");
+            BankAccount ba1 = new BankAccount("96-10-09", "cb123456", 500.00);
+            BankAccount ba2 = new BankAccount("97-10-08", "de987654", 1000.00);
+            ba1.makeDeposit(100.00); // ba1 account balance now 600.00
+            ba2.makeDeposit(50.00); // ba2 account balance now 1050.00
+            ba1.makeWithdrawl(200.00); // ba1 account balance now 400.00
+            ba2.makeWithdrawl(150.00); // ba2 account balance now 900.00
+            Console.WriteLine(ba1); // output ba1 account details
+            Console.WriteLine(ba2); // output ba2 account details
+            Console.ReadLine(); */
         }
     }
 }
