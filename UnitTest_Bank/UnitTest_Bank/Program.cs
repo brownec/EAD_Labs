@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace UnitTest_Bank
 {
-    /*      * dd read-only properties to correspond to these fields. 
-     * An overdraft limit of greater than zero indicates that an overdraft facility applies to the account. */
+    /*  An overdraft limit of greater than zero indicates that an overdraft facility applies to the account. */
     public class BankAccount
     {
         // 1.	Implement a BankAccount class which contains the following fields: sort code, account number, overdraft limit and balance. 
@@ -47,18 +46,100 @@ namespace UnitTest_Bank
 
         /* 3.	Implement another constructor for the class that takes as parameters just the sort code and account number. 
          * The overdraft limit should be set to zero. As above the opening balance of a new account is zero.*/
+        public BankAccount(string sortCode, string accNumber)
+            : this(sortCode, accNumber, 0) // overdraft limit set to zero
+        {
 
+        }
 
-        /* 4.	Implement a method Deposit which allows a deposit to be made to the account. 
+        // * dd read-only properties to correspond to these fields. 
+        public string SortCode
+        {
+            get
+            {
+                return sortCode;
+            }
+        }
+
+        public String AccNo
+        {
+            get
+            {
+                return accNumber;
+            }
+        }
+
+        public double OverDraft
+        {
+            get
+            {
+                return overDraftLimit;
+            }
+        }
+
+        public double AccBal
+        {
+            get
+            {
+                return accBalance;
+            }
+        }
+
+        public List<double> TransHistory
+        {
+            get
+            {
+                return transactionHistory;
+            }
+        }
+
+        /* 4.	Implement a method DEPOSIT which allows a deposit to be made to the account. 
          * The method should take the amount to deposit as a parameter.. */
+        public void makeDeposit(double depAmount)
+        {
+            // 1. Check to ensure deposit amount is greater than zero
+            if(depAmount > 0)
+            {
+                accBalance += depAmount; // accBalance property, adds the deposit amount to the current account balance
+                transactionHistory.Add(depAmount); // updates the transactionHistory, adds the deposit amount
+            }
+            else
+            {
+                // 1. Exception thrown if deposit amount entered zero or less than zero
+                throw new ArgumentException("Deposit Amount must be greater than zero!");
+            }
+        }
 
-        /* 5.	Implement a method Withdraw which allows a withdrawal to be made to the account. 
+        /* 5.	Implement a method WITHDRAW which allows a withdrawal to be made to the account. 
          * The method should take the amount to be withdrawn as a parameter. 
          * Only withdraw money if there are sufficient funds in the account subject to any overdraft facility that may be in place. 
          * Have the Withdraw method throw an exception if there are insufficient funds in the account to make the withdrawal.*/
+        public void makeWithdrawl(double wdAmount)
+        {
+            // 1. check to make sure amount entered is greater than zero
+            if(wdAmount > 0) 
+            {
+                // 2. Check to ensure that the wihdrawl amount is less than the account balance and overdraft limit
+                if((accBalance + overDraftLimit) > wdAmount)
+                {
+                    accBalance -= wdAmount; // calculates the account balance when withdrawl amount deducted
+                    transactionHistory.Add(wdAmount * -1); // updates the transactionHistory and adds the withdrawl to the list
+                }
+                else
+                {
+                    // 2. Exception thrown if wihdrawl amount exceeds account balance plus overdraft amount
+                    throw new ArgumentException("Insufficient Funds! Please enter another amount!");
+                }
+            }
+            else
+            {
+                // 1. Exception if amount less than zero or zero
+                throw new ArgumentException("Withdrawl amount must be greater than zero!");
+            }
+        }
 
-        /* 6.	 
-         * Modify the Deposit and  Withdraw methods to store the transaction concerned in the history. */
+
+        /* 6.   Modify the Deposit and  Withdraw methods to store the transaction concerned in the history. */
 
         // 7.	Override ToString() instead to return all information about the account including the transaction history.
 
