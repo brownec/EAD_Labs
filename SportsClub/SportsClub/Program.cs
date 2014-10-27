@@ -40,7 +40,7 @@ namespace SportsClub
          *      information about the player. Format the string appropriately. */
         public override string ToString()
         {
-            return "Player Name: " + Name + "Age: " + Age + "Gender: " + Gender;
+            return "Player Name: " + Name + " Age: " + Age + " Gender: " + Gender;
         }
     }
 
@@ -110,7 +110,7 @@ namespace SportsClub
                 Format the string appropriately. */
         public override string ToString()
         {
-            return base.ToString() + "Position: " + Position;
+            return base.ToString() + " Position: " + Position;
         }
     }
         
@@ -263,6 +263,50 @@ namespace SportsClub
         public static void Main()
         {
             Console.WriteLine("*****EAD1 - Sports Club Program*****");
+            try
+            {
+                // Create 2 Soccer Players
+                SoccerPlayer kranjcar = new SoccerPlayer
+                {
+                    Name = "Niko Kranjcar",
+                    Age = 34,
+                    Gender = Gender.m,
+                    Position = SoccerPosition.M
+                };
+
+                SoccerPlayer austin = new SoccerPlayer
+                {
+                    Name = "Charlie Austin",
+                    Age = 25,
+                    Gender = Gender.m,
+                    Position = SoccerPosition.S
+                };
+
+                // Create a Team
+                SoccerTeam qpr = new SoccerTeam("Queens Park Rangers", Gender.m, SoccerTeam.NoAgeLimit);
+
+                // Add players to team
+                qpr.AddPlayer(kranjcar);
+                qpr.AddPlayer(austin);
+
+                // output team details
+                Console.WriteLine("Team: " + qpr.TeamName);
+                foreach (SoccerPlayer player in qpr)
+                {
+                    Console.WriteLine(player);
+                }
+
+                // Find a player
+                Console.WriteLine("Found!");
+                SoccerPlayer p = qpr["Niko Kranjcar"]; // using the Indexer
+                Console.WriteLine(p);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
         }
+        
     }
 }
