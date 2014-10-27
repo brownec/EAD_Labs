@@ -136,6 +136,8 @@ namespace MusicPlayList
         {
             return base.ToString() + "Title: " + Title + " Artist: " + Artist + " Genre: " + Genre.ToString();
         }
+
+        public static MusicFile track2 { get; set; }
     }
     ////////////////////////////////////////END OF MUSIC FILE CLASS///////////////////////////////////////////////////////////
 
@@ -228,9 +230,7 @@ namespace MusicPlayList
                         }
                     }
                 }
-            
-        
-
+  
     // --------------------TEST CLASS--------------------
     class Program
     {
