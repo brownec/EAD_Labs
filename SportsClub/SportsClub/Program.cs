@@ -45,25 +45,48 @@ namespace SportsClub
         }
     }
 
-        
-
-    
-
 // PART TWO
         // 2.	Design and develop a SoccerPlayer class to represent a soccer player:
         // a.	A soccer player is a special type of sports player
+            
+        // Collection of positions that a Soccer Player plays
+    public enum SoccerPosition
+    {
+        Gk, D, M, S
+    }
 
+    public class SoccerPlayer : SportsPlayer
+    {
         /* b.	In addition to inherited properties (i.e. name, age, and gender) a soccer player 
          *      has one additional property - the position on the soccer field the player plays. 
          *      This player can play in one of the following positions only - goalkeeper, defender, midfielder, or striker. 
          *      Use a read/write auto-implemented property and an appropriately defined type for this property. */
+        public SoccerPosition Position { get; set; }
 
         /* c.	Add a constructor which initialises all 4 properties to values specified as 
          *      parameters to the constructor. */
+        public SoccerPlayer(String name, int age, Gender gender, SoccerPosition position)
+            : base(name, age, gender)
+        {
+            this.Position = position;
+        }
+
         /* d.	Add a default constructor, by default a sports player’s name is blank, their age is 0, their gender is 
          *      male, and their position is defender. */
+        public SoccerPlayer()
+            : this("", 0, Gender.m, SoccerPosition.D)
+        {
+
+        }
+        
         /* e.	Override ToString to return an appropriately formatted string containing full information about the soccer player. 
                 Format the string appropriately. */
+        public override string ToString()
+        {
+            return base.ToString() + "Player Name: " + Name + "Age: " + Age + "Gender: " + Gender + "Position: " + Position.ToString();
+        }
+    }
+        
 
 // PART THREE
         // 3.	Design and develop a SoccerTeam class to represent a soccer team:
