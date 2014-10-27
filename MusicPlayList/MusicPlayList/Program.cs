@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace MusicPlayList
 {
@@ -135,30 +137,106 @@ namespace MusicPlayList
             return base.ToString() + "Title: " + Title + " Artist: " + Artist + " Genre: " + Genre.ToString();
         }
     }
-        
+    ////////////////////////////////////////END OF MUSIC FILE CLASS///////////////////////////////////////////////////////////
+
+    //*************************************START OF PLAYLIST CLASS*********************************************************       
 
     // PART THREE
-            /* 3.	Design and develop a Playlist class to represent a playlist of music files i.e. a list of tracks which is named:
-            a.	Implement an auto-implemented for the playlist name in the class
-            b.	Add a field to the class to store the collection of music files which comprises the playlist, 
-                 * and add matching read-only property for this field.
-            c.	Implement a constructor for the class which takes 1 parameter corresponding to the playlist name, 
-                 * sets the corresponding field, and creates a new empty collection of music files.
-            d.	Implement a method to add a music track to the playlist’s collection of music files, throw an exception 
-                 * if there is an attempt made to add a track to the playlist where the playlist already contains a track 
-                 * with the same title and artist.
-            e.	Playlist should be an enumerated type, i.e. a user of the class should be able to iterate over the music files in the 
-                 * playlist using a foreach loop.
-            f.	Add a read-only indexer to the class which allows the collection of music files in a playlist for a specified 
-                 * genre to be retrieved e.g. the collection of dance or pop tracks for example, 
-                 * the genre being specified as a paramter to the indexer. */
+            // 3.	Design and develop a Playlist class to represent a playlist of music files i.e. a list of tracks which is named:
+                public class Playlist : IEnumerable
+                {
+                    // a.	Implement an auto-implemented for the playlist name in the class
+                    public String Name { get; set; }
+                    /* b.	Add a field to the class to store the collection of music files which comprises the playlist, 
+                          * and add matching read-only property for this field. */
+                    List<MusicFile> tracks;
+         
+                    // READ property for tracks
+                    public Collection<MusicFile> Tracks
+                    {
+                        get
+                        {
+                            return new Collection<MusicFile>(tracks);
+                        }
+                    }
+
+                    /*  c.	Implement a constructor for the class which takes 1 parameter corresponding to the playlist name, 
+                          * sets the corresponding field, and creates a new empty collection of music files. */
+                    public Playlist(String name)
+                    {
+                        this.Name = name;
+                        // creates an empty collection of music files
+                        tracks = new List<MusicFile>();
+                    }
+
+                    /*   d.	Implement a method to add a music track to the playlist’s collection of music files, throw an exception 
+                          * if there is an attempt made to add a track to the playlist where the playlist already contains a track 
+                          * with the same title and artist. */
+                    public void AddTrack(MusicFile track)
+                    {
+                        // check to see if the playlist is empty
+                        if(tracks == null)
+                        {
+                            // adds the track to the playlist
+                            tracks.Add(track);
+                        }
+                        else
+                        {
+                            // search playlist for duplicate track and throw exception if duplicate track found
+                            bool duplicate = false;
+                            foreach(MusicFile t in tracks)
+                            {
+                                // search where title and artist match track in playlist
+                                if((track.Title == t.Title) && (track.Artist == t.Artist))
+                                {
+                                    duplicate = true;
+                                    break; // exit search, duplicate found
+                                }
+                            }
+                            if(duplicate)
+                            {
+                                throw new ArgumentException("Error: Track " + track.Title + " by " + track.Artist + " is already in the playlist.");
+                            }
+                            else
+                            {
+                                // IF NO DUPLICATE found, add the track to the playlist
+                                tracks.Add(track); 
+                            }
+                        }
+                    }
+
+                    /*   e.	Playlist should be an enumerated type, i.e. a user of the class should be able to iterate over the music files in the 
+                          * playlist using a foreach loop. */
+                    public IEnumerator GetEnumerator()
+                    {
+                        foreach(MusicFile m in tracks)
+                        {
+                            yield return m;
+                        }
+                    }
+
+                    /*  f.	Add a read-only indexer to the class which allows the collection of music files in a playlist for a specified 
+                          * genre to be retrieved e.g. the collection of dance or pop tracks for example, 
+                          * the genre being specified as a parameter to the indexer. */
+                    public IEnumerable<MusicFile> this[MusicGenre genre]
+                    {
+                        get
+                        {
+                            // LINQ query selecting from the entire Music File
+                            var tracksForGenre = tracks.Where(t => t.Genre == genre);
+                            return tracksForGenre;
+                        }
+                    }
+                }
+            
+        
 
     // --------------------TEST CLASS--------------------
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("*****EAD1 - Music Play List Example CA1*****")
+            Console.WriteLine("*****EAD1 - Music Play List Example CA1*****");
         }
     }
 }
