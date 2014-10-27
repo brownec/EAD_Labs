@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTest_Bank;
+using UnitTestBank;
 using System.Collections.Generic;
 
 namespace UnitTestProject1
@@ -24,14 +24,14 @@ namespace UnitTestProject1
         public void CreateBankAccountWithInvalidOverdraft()
         {
             // -1000 overdraft limit/overdraft cannot be a negative amount
-            BankAccount bank2 = new BankAccount("99-20-96", "cb987654", -1000)
+            BankAccount bank2 = new BankAccount("99-20-96", "cb987654", -1000);
         }
 
         // Test for Deposit and Withdrawl
         [TestMethod]
         public void TestDepAndWD()
         {
-            BankAccount bank3 = new BankAccount("99-11-00", "cb000000", 1000)
+            BankAccount bank3 = new BankAccount("99-11-00", "cb000000", 1000);
             bank3.makeDeposit(100.00);
             bank3.makeWithdrawl(90.00);
             Assert.AreEqual(bank3.Balance, 10.00);
@@ -51,6 +51,18 @@ namespace UnitTestProject1
             {
                 500.00, 500.00, -600
             });
+        }
+
+        // Account Transactions empty due to no transactions being run
+        [TestMethod]
+        public void TestTransactionHistory2()
+        {
+            BankAccount bank5 = new BankAccount("99-09-09", "cb112233");
+            Assert.AreEqual(bank5.Balance, 0);
+            // Empty???
+            CollectionAssert.AreEqual(bank5.TransactionHistory, new List<double>()
+                {
+                });
         }
     }
 }
