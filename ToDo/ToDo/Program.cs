@@ -61,9 +61,21 @@ namespace ToDo
         {
             notes.Add(note);
         }
+
+        // Return the length of the notes collection
+        public int Length 
+        { 
+            get
+            {
+                return notes.Count;
+            }
+        }
     }
     ////////////////////////////////TO-DO-LIST END//////////////////////////////////////////////////////////////////
 
+    // ------------------------------------------------------------------------------------------
+    // -------------------------------------TO-DO-NOTE CLASS-------------------------------------
+    // ------------------------------------------------------------------------------------------
     // Priority for the ToDoNotePriority collection
     public enum ToDoNotePriority
     {
@@ -140,8 +152,7 @@ namespace ToDo
         {
             return "Subject: " + Subject + "Due Date: " + DueDate.ToString("d") + "Priority Level: " + Priority.ToString();
         }
-
-
+        
         /* 2.	Implement a SerialisedXML interface. 
          * This interface should contain just one method which takes a filename as an input parameter. 
          * Classes which implement this interface have to provide an implementation of this method 
@@ -168,9 +179,23 @@ namespace ToDo
      * displays the items in the list, and writes the first item to an XML file “todo.xml” */
     class Program
     {
-        public static void Main()
+        static void Main()
         {
             Console.WriteLine("*****EAD1 Worksheet 8 - ToDo List Program*****");
+            // Create a To-Do-List and add in some notes
+            ToDoList list = new ToDoList("Cliff");
+            list.AddToDoNote(new ToDoNote("NCT due", new DateTime(2014, 10, 28), ToDoNotePriority.High));
+            list.AddToDoNote(new ToDoNote("Tax car for 3 months", new DateTime(2014, 12, 12), ToDoNotePriority.Normal));
+            list.AddToDoNote(new ToDoNote("Pay Irish Water Bill", new DateTime(2015, 01, 31), ToDoNotePriority.Low));
+
+            // Output Note details to console
+            for(int i = 0; i < list.Length; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
+
+            // Output the second note to the an XML file
+            list[1].WriteToXML("todo.xml");
         }
     }
 }
