@@ -53,21 +53,89 @@ namespace MusicPlayList
             return "Filename: " + filename;
         }
     }
-        
+    ////////////////////////////////////////END OF MEDIA FILE CLASS///////////////////////////////////////////////////////////
 
+    //*************************************START OF MUSIC FILE CLASS*********************************************************
+    // iii.	The genre of the track i.e. pop, rock, dance, hip hop, wrap, or other.
+    public enum MusicGenre
+    {
+        Electronic, Pop, Rap, Rock, Soul, Other
+    }
     // PART TWO
             // 2.	Design and develop a MusicFile class to represent a music file/track:
             // a.	A music file is a special type of media file
-            // b.	In addition to the inherited filename property a music file has 3 additional properties:
-                // i.	The title of the music track 
-                // ii.	The artist performing the track
-                // iii.	The genre of the track i.e. pop, rock, dance, hip hop, wrap, or other. */
-            // Add read-only properties to the class for these 3 items, choose or define appropriate data types while doing so.
-            /* c.	Add a constructor which initialises all 3 properties to values specified as parameters to the constructor, 
-                    make sure that the title and artist are not blank. */
-            /* d.	Add another constructor which initialises just the title and artist to values specified as parameters to the constructor 
-                    and sets the genre to “other”, as above validate title and artist. */
-            // e.	Override ToString to return an appropriately formatted string containing full information about the music file.
+    public class MusicFile : MediaFile
+    {
+        // b.	In addition to the inherited filename property a music file has 3 additional properties:
+        // i.	The title of the music track 
+        // ii.	The artist performing the track
+        private String title;
+        private String artist;
+        private MusicGenre genre;
+
+        // Add read-only properties to the class for these 3 items, choose or define appropriate data types while doing so.
+        public String Title
+        {
+            get
+            {
+                return title;
+            }
+        }
+
+        public String Artist
+        {
+            get
+            {
+                return artist;
+            }
+        }
+
+        public MusicGenre Genre
+        {
+            get
+            {
+                return genre;
+            }
+        }
+
+        /* c.	Add a constructor which initialises all 3 properties to values specified as parameters to the constructor, 
+                make sure that the title and artist are not blank. */
+        public MusicFile(String filename, String title, String artist, MusicGenre genre)
+            : base(filename)
+        {
+            // check to ensure that the title field is not NULL or EMPTY
+            if(String.IsNullOrEmpty(title))
+            {
+                // exception thrown if title field is found to be NULL or EMPTY 
+                throw new ArgumentException("Title field cannot be blank!");
+            }
+                // check to ensure that the artist field is not NULL or EMPTY
+            else if(String.IsNullOrEmpty(artist))
+            {
+                // exception thrown if the artist field is found to be NULL or EMPTY
+                throw new ArgumentException("Artist field cannot be blank!");
+            }
+            // set the fields
+            this.title = title;
+            this.artist = artist;
+            this.genre = genre;
+        }
+
+        /* d.	Add another constructor which initialises just the title and artist to values specified as parameters to the constructor 
+                and sets the genre to “other”, as above validate title and artist. */
+        public MusicFile(String filename, String title, String artist)
+            : this(filename, title, artist, MusicGenre.Other)
+        {
+            // Chained
+        }
+
+        // e.	Override ToString to return an appropriately formatted string containing full information about the music file.
+        public override string ToString()
+        {
+            return base.ToString() + "Title: " + Title + " Artist: " + Artist + " Genre: " + Genre.ToString();
+        }
+    }
+        
 
     // PART THREE
             /* 3.	Design and develop a Playlist class to represent a playlist of music files i.e. a list of tracks which is named:
