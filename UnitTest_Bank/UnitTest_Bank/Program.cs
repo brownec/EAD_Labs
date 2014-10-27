@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest_Bank
+namespace UnitTestBank
 {
     /*  An overdraft limit of greater than zero indicates that an overdraft facility applies to the account. */
     public class BankAccount
