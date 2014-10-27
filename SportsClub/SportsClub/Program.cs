@@ -8,27 +8,49 @@ using System.Threading.Tasks;
 
 namespace SportsClub
 {
-// PART ONE
-        // 1.	Design and develop a SportsPlayer class to represent a person who plays sports:
+    // PART ONE
+    // 1.	Design and develop a SportsPlayer class to represent a person who plays sports:
+    // 3.	the player’s gender (use an appropriately defined type for gender)
+    public enum Gender
+    {
+        m, f
+    }
 
+    /* d.	SportsPlayer should serve as a base class for more specific subclasses, and it 
+            itself should not be able to be instantiated. */
+    public abstract class SportsPlayer
+    {
         // a.	Add appropriate read/write auto-implemented properties for the following:
-                // 1.	the player’s name
-                // 2.	the player’s age
-                // 3.	the player’s gender (use an appropriately defined type for gender)
+        // 1.	the player’s name
+        public String Name { get; set; }
+        // 2.	the player’s age
+        public int Age { get; set; }
+        // 3.	the player’s gender (use an appropriately defined type for gender)
+        public Gender Gender { get; set; }
 
         /* b.	Add a constructor which initialises all 3 properties to values specified as 
          *      parameters to the constructor. */
+        public SportsPlayer(String name, int age, Gender gender)
+        {
+            this.Name = name;
+            this.Age = age;
+            this.Gender = gender;
+        }
 
         /* c.	Override ToString to return an appropriately formatted string containing full 
-         *      information about the player. 
-         *      Format the string appropriately. */
+         *      information about the player. Format the string appropriately. */
+        public override string ToString()
+        {
+            return "Player Name: " + Name + "Age: " + Age + "Gender: " + Gender;
+        }
+    }
 
-        /* d.	SportsPlayer should serve as a base class for more specific subclasses, and it 
-                itself should not be able to be instantiated. */
+        
+
+    
 
 // PART TWO
         // 2.	Design and develop a SoccerPlayer class to represent a soccer player:
-
         // a.	A soccer player is a special type of sports player
 
         /* b.	In addition to inherited properties (i.e. name, age, and gender) a soccer player 
