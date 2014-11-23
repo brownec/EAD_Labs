@@ -32,6 +32,7 @@ namespace EADCAEx1.Models
         public String InstanceSize { get; set; }
 
         // Calculation
+        [DataType(DataType.Currency)]
         public double Cost
         {
             get

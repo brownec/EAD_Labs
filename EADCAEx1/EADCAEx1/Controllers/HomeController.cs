@@ -33,6 +33,10 @@ namespace EADCAEx1.Controllers
  
         public ActionResult Confirm(AzureCloudServices acs)
         {
+            TimeZone tz = TimeZone.CurrentTimeZone;
+            String zone = tz.StandardName.ToString();
+            String time = DateTime.Now.ToString();
+            ViewBag.EADCAEx1 = new String[] { zone, time };
             ViewBag.Message = "Your contact page.";
             return View(acs);
         }
