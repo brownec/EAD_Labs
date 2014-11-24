@@ -38,7 +38,7 @@ namespace AzureCS.Models
         public InstanceSizeDescription IDS { get; set; }
 
         [Required(ErrorMessage="Required")]
-        [Range(2, Int32.MaxValue, ErrorMessage="Must be greater than zero!")]
+        [Range(2, Int32.MaxValue, ErrorMessage="Must be greater than 1 Instance!")]
         [DisplayName("No.Instances")]
         public int NumInstances { get; set; }
 

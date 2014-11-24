@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using AzureCS.Models;
+using System;
 using System.Web.Mvc;
-using AzureCS.Models;
 
 namespace AzureCS.Controllers
 {
-    [HttpGet]
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Calculate()
         {
             return View(new AzureCloudServices() { IDS = InstanceSizeDescription.Medium, NumInstances = 2 });
