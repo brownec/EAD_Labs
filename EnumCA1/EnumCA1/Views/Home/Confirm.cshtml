@@ -1,0 +1,41 @@
+﻿@model EnumCA1.Models.AzureServices
+
+@{
+    ViewBag.Title = "Confirm";
+}
+@ViewBag.EnumCA1[0] in time Zone: @ViewBag.EnumCA1[1]
+<h2 style="color:red">Azure Services: Cost Analysis</h2>
+<div id="header"><a href="Calculate/">Calculate</a></div>
+<div>
+    <h4>Azure Services</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISD)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.NumInstances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumInstances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
