@@ -4,18 +4,18 @@
     ViewBag.Title = "Confirm";
 }
 
-<h2>Confirm</h2>
-
+<h2>Azure Cloud Service Details</h2>
+@ViewBag.EADEx1Enums[0] in Time Zone: @ViewBag.EADEx1Enums[1]
 <div>
-    <h4>AzureCloudServices</h4>
+    <h4>Azure Cloud Services</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.InstanceSizeDecription)
+            @Html.DisplayNameFor(model => model.InstanceSizeDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InstanceSizeDecription)
+            @Html.DisplayFor(model => model.InstanceSizeDescription)
         </dd>
 
         <dt>

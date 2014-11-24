@@ -4,47 +4,67 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EADEx1Enums.Models
 {
-    public enum InstanceSizeDescription { Very_Small, Small, Medium, Large, Very_Large, A6, A7 }
+    public enum InstanceSizeDescription { [Display(Name="Very Small")]VerySmall, Small, Medium, Large, [Display(Name="Very Large")]VeryLarge, A6, A7 }
     
     public class AzureCloudServices
     {
-        public static double[] InstancePriceDescription
-        {
-            get
-            {
-                return new double[] { 0.02, 0.08, 0.16, 0.32, 0.64, 0.90, 1.80 };
-            }
-        }
+        public const double VerySmall = 0.02;
+        public const double Small = 0.08;
+        public const double Medium = 0.16;
+        public const double Large = 0.32;
+        public const double VeryLarge = 0.64;
+        public const double A6 = 0.90;
+        public const double A7 = 1.80;
 
         [Required(ErrorMessage="Required")]
         [Range(1, Int32.MaxValue, ErrorMessage="Must be greater than 0(zero)")]
-        [DisplayName("Required Field")]
+        [DisplayName("No. Instances")]
         public int NumInstances { get; set; }
 
         [Required(ErrorMessage="Required")]
-        [DisplayName("Required Field")]
-        public String InstanceSize  { get; set; }
+        [DisplayName("Instance Size")]
+        public InstanceSizeDescription InstanceSizeDescription { get; set; }
 
+        [DataType(DataType.Currency)]
         public double Cost
         {
             get
             {
-                int size = 0;
-                for (int i = 0; i < AzureCloudServices.InstancePriceDescription.Length; i++)
+                double hourlyRate = 0;
+                if (InstanceSizeDescription.VerySmall == this.InstanceSizeDescription)
                 {
-                    if (AzureCloudServices.InstancePriceDescription[i] == this.NumInstances)
-                    {
-                        size = i;
-                        break;
-                    }
+                    hourlyRate = NumInstances * VerySmall;
                 }
-                double hourlyRate = NumInstances * InstancePriceDescription[size];
+                if (InstanceSizeDescription.Small == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * Small;
+                }
+                if (InstanceSizeDescription.Medium == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * Medium;
+                }
+                if (InstanceSizeDescription.Large == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * Large;
+                }
+                if (InstanceSizeDescription.VeryLarge == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * VeryLarge;
+                }
+                if (InstanceSizeDescription.A6 == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * A6;
+                }
+                if (InstanceSizeDescription.A7 == this.InstanceSizeDescription)
+                {
+                    hourlyRate = NumInstances * A7;
+                }
+
                 double dailyRate = hourlyRate * 24;
                 double yearlyRate;
 
                 if (DateTime.Now.Year % 4 == 0)
                 {
-                    // if a Leap Year
                     yearlyRate = dailyRate * 366;
                 }
                 else

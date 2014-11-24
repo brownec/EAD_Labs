@@ -12,8 +12,7 @@ namespace EADEx1Enums.Controllers
         [HttpGet]
         public ActionResult Calculate()
         {
-            ViewBag.InstanceSize = new SelectList(AzureCloudServices.InstancePriceDescription);
-            return View(new AzureCloudServices() { NumInstances = 2});
+            return View(new AzureCloudServices() { InstanceSizeDescription = InstanceSizeDescription.Medium, NumInstances = 2 });
         }
 
         [HttpPost]
@@ -29,7 +28,10 @@ namespace EADEx1Enums.Controllers
         public ActionResult Confirm(AzureCloudServices acs)
         {
             ViewBag.Message = "Your contact page.";
-
+            TimeZone tz = TimeZone.CurrentTimeZone;
+            String zone = tz.StandardName.ToString();
+            String time = DateTime.Now.ToString();
+            ViewBag.EADEx1Enums = new String[] { zone, time };
             return View(acs);
         }
     }
