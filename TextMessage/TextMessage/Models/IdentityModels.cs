@@ -29,5 +29,7 @@ namespace TextMessage.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<TextMessage.Models.TextMsg> TextMsgs { get; set; }
     }
 }

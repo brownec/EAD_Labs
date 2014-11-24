@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace TextMessage.Models
 {
@@ -20,5 +17,9 @@ namespace TextMessage.Models
         [StringLength(140, ErrorMessage="Message must be no more than 140 characters!")]
         [System.ComponentModel.DisplayName("Message: ")]
         public String Content { get; set; }
+
+        [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+        ErrorMessage = "Please enter correct email address")]
+        public EmailAddressAttribute Email { get; set; }
     }
 }
