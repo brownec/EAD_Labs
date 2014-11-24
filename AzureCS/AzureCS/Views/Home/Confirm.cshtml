@@ -1,0 +1,42 @@
+﻿@model AzureCS.Models.AzureCloudServices
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h2 style="color:chocolate">Cost Analysis(Annually)</h2>
+@ViewBag.AzureCS[0] in Time Zone: @ViewBag.AzureCS[1]
+<div>
+    <h4>Azure Cloud Services</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumInstances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumInstances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
