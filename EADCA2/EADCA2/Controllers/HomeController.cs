@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EADCA2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,20 @@ namespace EADCA2.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Calculate()
         {
-            return View();
+            return View(new M50() { VehicleCategory = VehicleCategory.Car, Tag = false});
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Calculate(M50 m)
         {
-            ViewBag.Message = "Your application description page.";
-
+            // ViewBag.Message = "Your application description page.";
+            if(ModelState.IsValid)
+            {
+                return View(m);
+                // return RedirectToAction("Calculate", m);
+            }
             return View();
         }
 

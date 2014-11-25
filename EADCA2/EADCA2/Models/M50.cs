@@ -18,6 +18,7 @@ namespace EADCA2.Models
 
         public Boolean Tag { get; set; }
 
+        [DataType(DataType.Currency)]
         public double Toll
         {
             get
@@ -67,7 +68,7 @@ namespace EADCA2.Models
                         toll = GoodsTollCharge;
                     }
                 }
-                return Toll;
+                return toll;
             }
         }
     }
